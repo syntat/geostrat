@@ -1,6 +1,6 @@
 extends Node2D
 
-var dimensions := Vector2(40, 40)
+var dimensions := Vector2(20, 20)
 var tile := load("res://tile.tscn")
 
 func _ready():
@@ -16,5 +16,5 @@ func _ready():
 func _process(delta):
 	pass
 
-func on_selection(pos: Vector2):
-	print(pos)
+func on_selection(row: int, col: int):
+	print(row, " ", col)

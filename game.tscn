@@ -1,8 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://v5v2mebeagy0"]
+[gd_scene load_steps=3 format=3 uid="uid://v5v2mebeagy0"]
 
 [ext_resource type="Script" path="res://Board.gd" id="1_66pjr"]
+[ext_resource type="Script" path="res://Camera.gd" id="2_bokcd"]
 
 [node name="Game" type="Node"]
 
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource("1_66pjr")
+
+[node name="Camera" type="Camera2D" parent="."]
+limit_left = -500
+limit_top = -500
+limit_right = 2100
+limit_bottom = 2100
+script = ExtResource("2_bokcd")

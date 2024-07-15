@@ -1,7 +1,7 @@
 extends AnimatedSprite2D
 
 var tileNumber: Vector2 
-signal selected(position: Vector2)
+signal selected(col, row)
 
 func _ready():
 	pass
@@ -26,7 +26,7 @@ func _on_button_mouse_exited():
 	self.modulate = Color8(255,255,255,255)
 
 func _on_button_pressed():
-	selected.emit(tileNumber)
+	selected.emit(tileNumber.x, tileNumber.y)
 
 func update_position():
 	position = Vector2(80 * tileNumber.x + 40, 80 * tileNumber.y + 40)
