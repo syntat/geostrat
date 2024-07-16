@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://v5v2mebeagy0"]
+[gd_scene load_steps=4 format=3 uid="uid://v5v2mebeagy0"]
 
 [ext_resource type="Script" path="res://Board.gd" id="1_66pjr"]
 [ext_resource type="Script" path="res://Camera.gd" id="2_bokcd"]
+[ext_resource type="Script" path="res://Minimap.gd" id="3_jomqc"]
 
 [node name="Game" type="Node"]
+
+[node name="Board" type="Node2D" parent="."]
+script = ExtResource("1_66pjr")
 
 [node name="Camera" type="Camera2D" parent="."]
 limit_left = -9999999
@@ -12,5 +16,14 @@ limit_right = 9999999
 limit_bottom = 9999999
 script = ExtResource("2_bokcd")
 
-[node name="Board" type="Node2D" parent="."]
-script = ExtResource("1_66pjr")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Minimap" type="Node2D" parent="CanvasLayer"]
+script = ExtResource("3_jomqc")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Minimap"]
+offset_right = 160.0
+offset_bottom = 90.0
+color = Color(0.733333, 0.133333, 0, 0.4)
+
+[connection signal="main_camera_moved" from="Camera" to="CanvasLayer/Minimap" method="_on_camera_main_camera_moved"]

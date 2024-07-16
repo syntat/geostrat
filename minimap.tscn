@@ -1,26 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://34lovbd1j7qh"]
+[gd_scene load_steps=3 format=3 uid="uid://mybaon2vxhvp"]
 
-[ext_resource type="Script" path="res://minimap.gd" id="1_qofoh"]
+[sub_resource type="GDScript" id="GDScript_jj2fp"]
+script/source = "extends Control
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pbjjd"]
-blend_mode = 1
+# Fills the ColorRect with dots that represent the tiles of the board
+# The ColorRect script controls the drawing of the camera rectangle
 
-[sub_resource type="Theme" id="Theme_pkg8c"]
+var BoardResolution: Vector2 = Vector2(20, 20)
+var selfSize: int
+
+func _ready():
+	selfSize = $ColorRect.size.x
+	queue_redraw()
+	
+func _draw():
+	var radius = (selfSize - 1.0) / (BoardResolution.x)
+	for col in range(0, BoardResolution.x - 1 ):
+		for row in range(0, BoardResolution.y - 1 ):
+			draw_circle(Vector2(radius + col * radius, radius + row * radius), radius / 4.0, Color8(120, 140, 150, 255))
+	
+"
+
+[sub_resource type="GDScript" id="GDScript_luxlq"]
+script/source = "extends ColorRect
+
+var cameraSize: Vector2
+var cameraPosition: Vector2
+var recColor: Color = Color8(250, 80, 240, 255)
+
+func _ready():
+	cameraSize = Vector2(self.size.x, self.size.y * (9.0 / 16.0)) #adjust the camera size to be the same 
+	#proportion of the miniboard as the main camera of the main board
+	queue_redraw()
+
+func on_camera_position_change(position: Vector2) : 
+	cameraPosition = Vector2((position.x / 1600.0) * self.size.x, (position.y / 900.0) * self.size.y)
+
+func _process(delta):
+	pass
+
+func _draw():
+	
+	var startPoint := cameraPosition - cameraSize / 2.0
+	var endPoint := cameraPosition + cameraSize / 2.0
+	var urCorner := startPoint + Vector2(endPoint.x - startPoint.x, 0)
+	var llCorner := startPoint + Vector2(0, endPoint.y - startPoint.y)
+	
+	draw_line(startPoint, urCorner, recColor, 2.0)
+	draw_line(startPoint, llCorner, recColor, 2.0)
+	draw_line(urCorner, endPoint, recColor, 2.0)
+	draw_line(llCorner, endPoint, recColor, 2.0)
+
+"
 
 [node name="Control" type="Control"]
-modulate = Color(0, 0, 0, 1)
-self_modulate = Color(0, 0, 0, 1)
-material = SubResource("CanvasItemMaterial_pbjjd")
 layout_mode = 3
-anchors_preset = 0
-offset_right = 180.0
-offset_bottom = 180.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -90.0
+offset_right = 90.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme = SubResource("Theme_pkg8c")
-script = ExtResource("1_qofoh")
+script = SubResource("GDScript_jj2fp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 0
 offset_right = 180.0
 offset_bottom = 180.0
+color = Color(0.198015, 0.352254, 0.392985, 1)
+script = SubResource("GDScript_luxlq")

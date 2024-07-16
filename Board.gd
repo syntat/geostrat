@@ -17,4 +17,5 @@ func _process(delta):
 	pass
 
 func on_selection(row: int, col: int):
+	# TODO implement connection between selection of tile and queued action for the turn
 	print(row, " ", col)

@@ -9,10 +9,11 @@ var current_mouse_position: Vector2
 var mouse_delta: Vector2
 var just_started_scroll: bool = true
 
+signal main_camera_moved(pos: Vector2)
+
 func _ready():
 	position = Vector2(760, 450)
 	scrolling = false
-	pass
 	
 func _process(delta):
 	velocity = Vector2.ZERO
@@ -29,6 +30,7 @@ func _process(delta):
 		scrolling = false
 		just_started_scroll = true
 		mouse_delta = Vector2(0,0)
+		emit_signal("main_camera_moved", self.position)
 	position -= mouse_delta
 	position = position.clamp(Vector2(0, 0), Vector2(1600, 1600))
 	
