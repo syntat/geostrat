@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://34lovbd1j7qh"]
+
+[ext_resource type="Script" path="res://minimap.gd" id="1_qofoh"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_pbjjd"]
+blend_mode = 1
+
+[sub_resource type="Theme" id="Theme_pkg8c"]
+
+[node name="Control" type="Control"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_pbjjd")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 180.0
+offset_bottom = 180.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = SubResource("Theme_pkg8c")
+script = ExtResource("1_qofoh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 180.0
+offset_bottom = 180.0

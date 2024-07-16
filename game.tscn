@@ -5,12 +5,12 @@
 
 [node name="Game" type="Node"]
 
+[node name="Camera" type="Camera2D" parent="."]
+limit_left = -9999999
+limit_top = -9999999
+limit_right = 9999999
+limit_bottom = 9999999
+script = ExtResource("2_bokcd")
+
 [node name="Board" type="Node2D" parent="."]
 script = ExtResource("1_66pjr")
-
-[node name="Camera" type="Camera2D" parent="."]
-limit_left = -500
-limit_top = -500
-limit_right = 2100
-limit_bottom = 2100
-script = ExtResource("2_bokcd")

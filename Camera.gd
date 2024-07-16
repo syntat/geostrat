@@ -4,14 +4,13 @@ var velocity: Vector2
 var nail: Vector2
 var scrolling: bool
 
-# FIX: Problems with clamping of the camera - no smooth movement when skirting the edges
-
 var last_mouse_position: Vector2
 var current_mouse_position: Vector2
 var mouse_delta: Vector2
 var just_started_scroll: bool = true
 
 func _ready():
+	position = Vector2(760, 450)
 	scrolling = false
 	pass
 	
@@ -31,6 +30,7 @@ func _process(delta):
 		just_started_scroll = true
 		mouse_delta = Vector2(0,0)
 	position -= mouse_delta
+	position = position.clamp(Vector2(0, 0), Vector2(1600, 1600))
 	
 	
 	
